@@ -20,7 +20,7 @@ data class ErrorResponse(
 
     var timestamp:LocalDateTime? = null,
 
-    var errors:MutableList<Error>
+    var errors:MutableList<Error>? = null
 )
 
 data class Error(

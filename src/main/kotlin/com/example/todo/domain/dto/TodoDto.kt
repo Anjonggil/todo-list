@@ -1,7 +1,8 @@
 package com.example.todo.domain.dto
 
-import com.example.mvc.validator.StringFormatDateTime
+import com.example.todo.domain.entity.Todo
 import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 import javax.validation.constraints.NotBlank
 
 data class TodoDto(
@@ -19,5 +20,28 @@ data class TodoDto(
     var createdAt:LocalDateTime?=null,
 
 //    @field:StringFormatDateTime
-    val updatedAt:LocalDateTime?=null
+    var updatedAt:LocalDateTime?=null
 )
+
+fun TodoDto.toEntity(todoDto : TodoDto): Todo{
+    return Todo(
+        id = todoDto.id,
+        title = todoDto.title,
+        description = todoDto.description,
+        schedule = LocalDateTime.parse(todoDto.schedule,DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")),
+        createdAt = todoDto.createdAt,
+        updatedAt = todoDto.updatedAt
+    )
+}
+
+fun TodoDto.toDto(todo: Todo) : TodoDto{
+    return TodoDto().apply {
+        this.id = todo.id
+        this.title = todo.title
+        this.description = todo.description
+        this.schedule = todo.schedule?.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
+        this.createdAt = todo.createdAt
+        this.updatedAt = todo.updatedAt
+    }
+}
+
