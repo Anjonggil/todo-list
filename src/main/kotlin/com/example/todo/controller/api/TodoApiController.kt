@@ -51,6 +51,6 @@ class TodoApiController (
 
     @DeleteMapping(path = ["/{id}"])
     fun delete(@PathVariable id:Long){
-
+        todoService.delete(id)
     }
 }
