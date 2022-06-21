@@ -23,14 +23,25 @@ data class TodoDto(
     var updatedAt:LocalDateTime?=null
 )
 
-fun TodoDto.toEntity(todoDto : TodoDto): Todo{
+fun TodoDto.createEntity(): Todo{
     return Todo(
-        id = todoDto.id,
-        title = todoDto.title,
-        description = todoDto.description,
-        schedule = LocalDateTime.parse(todoDto.schedule,DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")),
-        createdAt = todoDto.createdAt,
-        updatedAt = todoDto.updatedAt
+        id = this.id,
+        title = this.title,
+        description = this.description,
+        schedule = LocalDateTime.parse(this.schedule,DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")),
+        createdAt = LocalDateTime.now(),
+        updatedAt = LocalDateTime.now()
+    )
+}
+
+fun TodoDto.toEntity(): Todo{
+    return Todo(
+        id = this.id,
+        title = this.title,
+        description = this.description,
+        schedule = LocalDateTime.parse(this.schedule,DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")),
+        createdAt = this.createdAt,
+        updatedAt = this.updatedAt
     )
 }
 
